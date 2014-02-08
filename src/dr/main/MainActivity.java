@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 	
 	public void connect(View view) {
 		
-		Client client = new Client(12345, "172.31.202.93");
+		Client client = new Client(12345, "172.31.208.243");
 		
 	}
 	
