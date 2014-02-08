@@ -24,17 +24,18 @@ public class Client {
 
     }
 
-    public Client(int port, String ip, CommsHandlerInterface commsHandlerInterface) {
-        super(port, ip, commsHandlerInterface);
-        clientThread = new ClientThread();
+    public Client(int port, String ip) {
+        clientThread = new ClientThread(ip);
     }
 
     public class ClientThread extends Thread {
         boolean keepRunning = true;
+        String ip;
         Queue<String> outgoingCommandQueue;
 
 
-        public ClientThread() {
+        public ClientThread(String ip) {
+        	this.ip = ip;
         	outgoingCommandQueue = new LinkedList<String>();
         }
         

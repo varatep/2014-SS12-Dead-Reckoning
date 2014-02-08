@@ -14,8 +14,7 @@ public class Server {
 	
     ServerThread serverThread;
     
-    public Server(int port, CommsHandlerInterface commsHandlerInterface) {
-        super(port, commsHandlerInterface);
+    public Server(int port) {
         serverThread = new ServerThread();
     }
 
@@ -25,7 +24,6 @@ public class Server {
     public void writeData(String data) {
     }
 
-    @Override
     public void closeConnection() {
         serverThread.shutDown();
     }
