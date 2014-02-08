@@ -28,13 +28,13 @@ public class MainActivity extends Activity {
 	public void connect(View view) {
 		
 		Log.i("ss12", "here");
-		Client client = new Client(12345, "172.31.208.243");
+		Client client = new Client(80, "172.31.208.243");
 		
 	}
 	
 	public void listen(View view) {
 		
-		Server server = new Server(12345);
+		Server server = new Server(80);
 		
 	}
 

@@ -13,15 +13,17 @@ import android.util.Log;
 public class Server implements Runnable {
     
 	boolean keepRunning = true;
+	int port;
 	
     public Server(int port) {
+    	this.port = port;
         Thread thread = new Thread(this);
         thread.start();
     }
     
     public void run() {
 	    try {
-	        ServerSocket serverSocket = new ServerSocket(12345);
+	        ServerSocket serverSocket = new ServerSocket(port);
 	        serverSocket.setReuseAddress(true);
 	        Log.i("ss12", "waiting for connection");
 	
