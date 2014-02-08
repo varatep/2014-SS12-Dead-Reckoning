@@ -45,7 +45,6 @@ public class Client {
 
         @Override
         public void run() {
-            super.run();
             try {
                 Socket socket = new Socket(ip, 12345);
                 socket.setReuseAddress(true);
@@ -69,6 +68,7 @@ public class Client {
                         final String s = reader.readLine();
 
                     } catch (Exception e) {
+                    	
                     }
 
                 }
@@ -80,5 +80,4 @@ public class Client {
             }
         }
     }
-
 }
