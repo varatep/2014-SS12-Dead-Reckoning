@@ -6,6 +6,7 @@ import Network.Server;
 import dr.main.R;
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
@@ -26,6 +27,7 @@ public class MainActivity extends Activity {
 	
 	public void connect(View view) {
 		
+		Log.i("ss12", "here");
 		Client client = new Client(12345, "172.31.208.243");
 		
 	}
