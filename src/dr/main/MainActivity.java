@@ -2,6 +2,7 @@ package dr.main;
 
 import Network.Client;
 import Network.Server;
+import Network.WiFiDirectBroadcastReceiver;
 
 import dr.main.R;
 import android.net.wifi.p2p.WifiP2pManager;
@@ -18,6 +19,8 @@ public class MainActivity extends Activity {
 
 	private final IntentFilter intentFilter = new IntentFilter();
 	Channel mChannel;
+	WifiP2pManager mManager;
+	WiFiDirectBroadcastReceiver receiver;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +38,17 @@ public class MainActivity extends Activity {
 
 	    // Indicates this device's details have changed.
 	    intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
-
-	    
-	    WifiP2pManager mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+	    mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
 	    mChannel = mManager.initialize(this, getMainLooper(), null);
 	    
+	    receiver = new WiFiDirectBroadcastReceiver(mManager, mChannel, this);
+	    
+	}
+	
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    registerReceiver(receiver, intentFilter);
 	}
 
 	@Override
@@ -51,8 +60,19 @@ public class MainActivity extends Activity {
 	
 	public void connect(View view) {
 		
-		Log.i("ss12", "here");
-		Client client = new Client(1025, "172.31.196.130");
+		Client client = new Client(8888, "172.31.208.243");
+		
+		/*mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
+	        @Override
+	        public void onSuccess() {
+	            Log.i("ss12", "discover peers - success");
+	        }
+
+	        @Override
+	        public void onFailure(int reasonCode) {
+	            Log.i("ss12", "discover peers - failed");
+	        }
+	    });*/
 		
 	}
 	

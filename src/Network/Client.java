@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -32,8 +33,9 @@ public class Client implements Runnable {
     public void run() {
         try {
         	Log.i("ss12", "before connection");
-        	InetAddress serverAddr = InetAddress.getByName(ip);
-            Socket socket = new Socket(serverAddr, port);
+        	Socket socket = new Socket();
+        	socket.bind(null);
+            socket.connect((new InetSocketAddress(ip, port)), 500);
             socket.setReuseAddress(true);
             socket.setKeepAlive(true);
 

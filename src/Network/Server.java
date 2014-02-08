@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import android.util.Log;
 
 public class Server implements Runnable {
@@ -47,12 +46,9 @@ public class Server implements Runnable {
 	            try {
 	                String s = reader.readLine();
 	                Log.i("ss12", "read in " + String.valueOf(s));
-	                keepRunning = false;
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
-	//
-	
 	        }
 	
 	        clientSocket.close();
