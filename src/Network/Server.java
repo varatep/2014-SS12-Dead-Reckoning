@@ -31,7 +31,7 @@ public class Server implements Runnable {
 	        clientSocket.setKeepAlive(true);
 	        clientSocket.setTcpNoDelay(true);
 	
-	        clientSocket.setSoTimeout(10);
+	        clientSocket.setSoTimeout(0);
 	
 	        Log.i("ss12", "connection established");
 	        BufferedReader reader = new BufferedReader(
@@ -47,6 +47,7 @@ public class Server implements Runnable {
 	            try {
 	                String s = reader.readLine();
 	                Log.i("ss12", "read in " + String.valueOf(s));
+	                keepRunning = false;
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
