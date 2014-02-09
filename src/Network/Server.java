@@ -17,6 +17,8 @@ import android.util.Log;
 public class Server implements Runnable {
     
 	boolean keepRunning = true;
+	boolean success = false;
+	
 	int port;
 	
 	ServerSocket serverSocket;
@@ -33,6 +35,10 @@ public class Server implements Runnable {
     
     public synchronized void shutDown() {
     	keepRunning = false;
+    }
+    
+    public synchronized void setSuccessful() {
+    	success = true;
     }
     
     public void run() {
@@ -56,43 +62,38 @@ public class Server implements Runnable {
 	                        clientSocket.getOutputStream());
 	
 	        while(keepRunning) {
+	        	//server writes to client first
 	        	String direction = LocateActivity.direction + "\r\n";
-	        	//Log.i("ss12", direction);
 	        	writer.write(direction);
 	        	writer.flush();
+	        	
+	        	//if the users have reached each other
+	        	if(success) {
+	        		writer.write("Thank you for using the Dead Reckoning App\r\n");
+	        		writer.flush();
+	        		break;
+	        	}
+	        	
+	        	//server tries to read from client
 	        	try {
 	                String s = reader.readLine();
 	                Log.i("ss12", "read in " + String.valueOf(s) + "\n");
-	                //reader.readLine();
+	                //if the server receives notification that we are done
+	                if(s.contains("Thank you for using")) {
+	                	break;
+	                }
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
 	        }
-	        //while (keepRunning) {
-	        	/*String direction = "";
-	        	Log.i("ss12", "before - " + LocateActivity.direction);
-	        	if(!LocateActivity.direction.equals(direction)) {
-	        		Log.i("ss12", "after - " + LocateActivity.direction);
-	        		direction = LocateActivity.direction;
-                    writer.write("hello");
-                    //clientSocket.shutdownOutput();
-                    writer.flush();
-	        	}
-	        	try {
-	                String s = reader.readLine();
-	                clientSocket.shutdownInput();
-	                Log.i("ss12", "read in " + String.valueOf(s));
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
-	        	Thread.sleep(50);*/
-	        //}
 	
 	        writer.close();
 	        reader.close();
 	        clientSocket.close();
 	        serverSocket.close();
 	    } catch (Exception e) {
+	    	
+	    	//close sockets and readers/writers if an error occurs
 	    	try {
 		    	if(clientSocket != null) {
 		    		clientSocket.close();

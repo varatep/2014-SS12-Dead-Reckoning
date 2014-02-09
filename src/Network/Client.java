@@ -19,6 +19,8 @@ import android.util.Log;
 public class Client implements Runnable {
 
 	boolean keepRunning = true;
+	boolean success = false;
+	
 	Queue<String> outgoingCommandQueue;
 	int port;
 	String ip;
@@ -38,6 +40,10 @@ public class Client implements Runnable {
     public synchronized void shutDown() {
     	keepRunning = false;
     }
+    
+    public synchronized void setSuccessful() {
+    	success = true;
+    }
 
 
     @Override
@@ -53,36 +59,38 @@ public class Client implements Runnable {
             Log.i("ss12", "connection established");
             
             writer = new PrintWriter(
-                    //new OutputStreamWriter(
                             socket.getOutputStream());
             reader = new BufferedReader(
                     new InputStreamReader(
                             socket.getInputStream()));
             
             while (keepRunning) {
+            	
+            	//client tries to read first
             	try {
 	                String s = reader.readLine();
 	                Log.i("ss12", "read in " + String.valueOf(s) + "\n");
-	                //reader.readLine();
+	                
+	                //if the server receives notification that we are done
+	                if(s.contains("Thank you for using")) {
+	                	break;
+	                }
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
+            	
+            	//client sends coordinates to server
             	String direction = LocateActivity.direction + "\r\n";
-	        	//Log.i("ss12", direction);
 	        	writer.write(direction);
 	        	writer.flush();
-            }
-	        	/*String direction = "";
-	        	Log.i("ss12", "before - " + LocateActivity.direction);
-	        	if(!LocateActivity.direction.equals(direction)) {
-	        		Log.i("ss12", "after - " + LocateActivity.direction);
-	        		direction = LocateActivity.direction;
-                    writer.write(direction);
-                    //socket.shutdownOutput();
-                    writer.flush();
+	        	
+	        	//if the users have reached each other
+	        	if(success) {
+	        		writer.write("Thank you for using the Dead Reckoning App\r\n");
+	        		writer.flush();
+	        		break;
 	        	}
-	        	Thread.sleep(50);*/
-	        //}
+            }
             
             reader.close();
             writer.close();
@@ -90,6 +98,7 @@ public class Client implements Runnable {
 
 
         } catch (Exception e) {
+        	//close sockets and readers/writers if an error occurs
         	if(socket != null) {
         		try {
 					socket.close();
