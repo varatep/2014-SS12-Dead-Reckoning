@@ -56,8 +56,11 @@ public class Server implements Runnable {
 	                        clientSocket.getOutputStream());
 	
 	        while(keepRunning) {
-	        	writer.write("hello");
+	        	String direction = LocateActivity.direction + "\n";
+	        	Log.i("ss12", direction);
+	        	writer.write(direction);
 	        	writer.flush();
+	        	//Thread.sleep(50);
 	        }
 	        //while (keepRunning) {
 	        	/*String direction = "";
@@ -79,10 +82,10 @@ public class Server implements Runnable {
 	        	Thread.sleep(50);*/
 	        //}
 	
-	        clientSocket.close();
-	        serverSocket.close();
 	        writer.close();
 	        reader.close();
+	        clientSocket.close();
+	        serverSocket.close();
 	    } catch (Exception e) {
 	    	try {
 		    	if(clientSocket != null) {

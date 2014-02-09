@@ -63,7 +63,7 @@ public class Client implements Runnable {
             	try {
 	                String s = reader.readLine();
 	                //socket.shutdownInput();
-	                Log.i("ss12", "read in " + String.valueOf(s));
+	                Log.i("ss12", "read in " + String.valueOf(s) + "\n");
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
@@ -79,8 +79,10 @@ public class Client implements Runnable {
 	        	}
 	        	Thread.sleep(50);*/
 	        //}
-            socket.close();
+            
+            reader.close();
             writer.close();
+            socket.close();
 
 
         } catch (Exception e) {
