@@ -29,7 +29,7 @@ public class HelpActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				//tts.speakPhrase(buttonReturn.getText().toString());
+				tts.speakPhrase(buttonReturn.getText().toString());
 				tts.shutDownTTS();
 				startActivity(new Intent(HelpActivity.this, MainActivity.class));
 			}
