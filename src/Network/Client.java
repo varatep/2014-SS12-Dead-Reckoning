@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -22,7 +23,7 @@ public class Client implements Runnable {
 	int port;
 	String ip;
 	Socket socket;
-	BufferedWriter writer;
+	PrintWriter writer;
 	BufferedReader reader;
 	
     public Client(int port, String ip) {
@@ -51,29 +52,32 @@ public class Client implements Runnable {
 
             Log.i("ss12", "connection established");
             
-            writer = new BufferedWriter(
-                    new OutputStreamWriter(
-                            socket.getOutputStream()));
+            writer = new PrintWriter(
+                    //new OutputStreamWriter(
+                            socket.getOutputStream());
             reader = new BufferedReader(
                     new InputStreamReader(
                             socket.getInputStream()));
             
-            while (keepRunning) {
+            //while (keepRunning) {
             	try {
 	                String s = reader.readLine();
+	                //socket.shutdownInput();
 	                Log.i("ss12", "read in " + String.valueOf(s));
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
-	        	String direction = "";
+	        	/*String direction = "";
 	        	Log.i("ss12", "before - " + LocateActivity.direction);
 	        	if(!LocateActivity.direction.equals(direction)) {
 	        		Log.i("ss12", "after - " + LocateActivity.direction);
 	        		direction = LocateActivity.direction;
                     writer.write(direction);
-                    //writer.flush();
+                    //socket.shutdownOutput();
+                    writer.flush();
 	        	}
-	        }
+	        	Thread.sleep(50);*/
+	        //}
             socket.close();
             writer.close();
 
@@ -87,11 +91,7 @@ public class Client implements Runnable {
 				}
         	}
         	if(writer != null) {
-        		try {
-					writer.close();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+        		writer.close();
         	}
         	if(reader != null) {
         		try {

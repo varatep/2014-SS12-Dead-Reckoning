@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -22,7 +23,7 @@ public class Server implements Runnable {
 	Socket clientSocket;
 	
 	BufferedReader reader;
-	BufferedWriter writer;
+	PrintWriter writer;
 	
     public Server(int port) {
     	this.port = port;
@@ -51,27 +52,31 @@ public class Server implements Runnable {
 	        reader = new BufferedReader(
 	                new InputStreamReader(
 	                        clientSocket.getInputStream()));
-	        writer = new BufferedWriter(
-	                new OutputStreamWriter(
-	                        clientSocket.getOutputStream()));
+	        writer = new PrintWriter(
+	                        clientSocket.getOutputStream());
 	
 	
-	        while (keepRunning) {
-	        	String direction = "";
+	        writer.write("hello");
+	        
+	        //while (keepRunning) {
+	        	/*String direction = "";
 	        	Log.i("ss12", "before - " + LocateActivity.direction);
 	        	if(!LocateActivity.direction.equals(direction)) {
 	        		Log.i("ss12", "after - " + LocateActivity.direction);
 	        		direction = LocateActivity.direction;
                     writer.write("hello");
-                    //writer.flush();
+                    //clientSocket.shutdownOutput();
+                    writer.flush();
 	        	}
 	        	try {
 	                String s = reader.readLine();
+	                clientSocket.shutdownInput();
 	                Log.i("ss12", "read in " + String.valueOf(s));
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
-	        }
+	        	Thread.sleep(50);*/
+	        //}
 	
 	        clientSocket.close();
 	        serverSocket.close();
