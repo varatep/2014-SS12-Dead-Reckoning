@@ -12,25 +12,23 @@
         android:id="@+id/ax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ay"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="47dp"/>
-
-    <TextView
-        android:id="@+id/az"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="102dp" />
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:id="@+id/ay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/az"
+        android:layout_below="@+id/ax"
+        android:layout_marginTop="38dp" />
+
+    <TextView
+        android:id="@+id/az"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ay"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

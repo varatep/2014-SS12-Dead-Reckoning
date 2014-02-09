@@ -118,6 +118,8 @@ public class LocateActivity extends Activity implements SensorEventListener {
 		
 		sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        //sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
+
 		
 		 //  Indicates a change in the Wi-Fi P2P status.
 	    /*intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
@@ -194,6 +196,7 @@ public class LocateActivity extends Activity implements SensorEventListener {
 	    super.onResume();
 	    
 	    sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+	    sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_NORMAL);
 	    //receiver = new WiFiDirectBroadcastReceiver(mManager, mChannel, this, peerListListener);
         //registerReceiver(receiver, intentFilter);
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, this);
@@ -215,13 +218,15 @@ public class LocateActivity extends Activity implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
 		if (event.sensor.getType()==Sensor.TYPE_ACCELEROMETER){
 			ax=event.values[0];
-                   	ay=event.values[1];
-                   	az=event.values[2];
-           	}
-		
-		axText.setText(Double.toString(ax));
-		ayText.setText(Double.toString(ay));
-		azText.setText(Double.toString(az));
+			ay=event.values[1];
+			az=event.values[2];
+			axText.setText(Double.toString(ax));
+			ayText.setText(Double.toString(ay));
+			azText.setText(Double.toString(az));
+		}
+		if (event.sensor.getType()==Sensor.TYPE_ORIENTATION) {
+			
+		}
 		//Log.i("ss12", "ax: " + ax);
 		//Log.i("ss12", "ay: " + ay);
 		//Log.i("ss12", "az: " + az);

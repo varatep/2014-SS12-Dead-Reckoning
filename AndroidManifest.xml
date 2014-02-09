@@ -3,11 +3,13 @@
     package="com.example.deadreckoning"
     android:versionCode="1"
     android:versionName="1.0" >
-<uses-permission android:name="android.permission.MANAGE_ACCOUNTs"/>
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
-<uses-permission android:name="android.permission.VIBRATE"/>
-<uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTs" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
@@ -25,7 +27,10 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -37,27 +42,27 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.category.MENU" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            
-            
-            
         </activity>
-        
-        <activity android:name=".SplashActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        <activity
+            android:name="com.example.deadreckoning.SplashActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity android:name=".HelpActivity"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
-            
+        <activity
+            android:name="com.example.deadreckoning.HelpActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
-        
-        
+        <activity
+            android:name="com.example.deadreckoning.LocateActivity"
+            android:label="@string/title_activity_locate" >
+        </activity>
     </application>
 
 </manifest>
