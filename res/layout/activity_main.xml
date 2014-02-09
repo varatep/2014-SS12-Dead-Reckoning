@@ -28,23 +28,21 @@
         />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
-        android:layout_alignLeft="@+id/splashText"
-        android:layout_marginBottom="110dp"
-        android:text="Look For Server"
-        android:textSize="36dp" 
-        />
-
-    <Button
         android:id="@+id/button1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/splashText"
         android:layout_below="@+id/splashText"
         android:text="Look For Client"
+        android:textSize="36dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_centerVertical="true"
+        android:text="Look For Server"
         android:textSize="36dp" />
 
 </RelativeLayout>

@@ -68,7 +68,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				startActivity(new Intent(MainActivity.this, SplashActivity.class));
+				//tts.speakPhrase(buttonClient.getText().toString());
+				startActivity(new Intent(MainActivity.this, MainActivity.class));
 			}
 		});
 		
@@ -77,6 +78,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
+				//tts.speakPhrase(buttonServer.getText().toString());
 				startActivity(new Intent(MainActivity.this, MainActivity.class));
 			}
 		});
@@ -86,6 +88,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
+				//tts.speakPhrase(buttonHelp.getText().toString());
 				startActivity(new Intent(MainActivity.this, HelpActivity.class));
 			}
 		});
