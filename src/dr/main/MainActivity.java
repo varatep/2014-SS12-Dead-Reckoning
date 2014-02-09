@@ -1,7 +1,14 @@
 package dr.main;
 
+import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Enumeration;
 import java.util.List;
 
 import Network.Client;
@@ -53,6 +60,27 @@ public class MainActivity extends Activity {
                 Log.d("ss12", "No devices found");
                 return;
             }
+            else {
+            	WifiP2pDevice device = peers.get(0);
+        		WifiP2pConfig config = new WifiP2pConfig();
+        		config.deviceAddress = device.deviceAddress;
+        		mManager.connect(mChannel, config, new ActionListener() {
+        		 
+        		    @Override
+        		    public void onSuccess() {
+        		        //success logic
+        		    	String ip = getDottedDecimalIP(getLocalIPAddress());
+        		    	Client client = new Client(1234,ip);
+        		    	Log.i("ss12", "Holy Shit we connected to the device via direct wifi");
+        		    }
+        		 
+        		    @Override
+        		    public void onFailure(int reason) {
+        		    	Toast.makeText(MainActivity.this, "Connect failed. Retry.",
+                                Toast.LENGTH_SHORT).show();
+        		    }
+        		});
+            }
         }
 	};
 	
@@ -102,36 +130,10 @@ public class MainActivity extends Activity {
 	}
 	
 	public void connect(View view) {
-		
-		//Client client = new Client(2000, "192.168.45.139");
-		
-		WifiP2pDevice device = peers.get(0);
-		WifiP2pConfig config = new WifiP2pConfig();
-		config.deviceAddress = device.deviceAddress;
-		mManager.connect(mChannel, config, new ActionListener() {
-		 
-		    @Override
-		    public void onSuccess() {
-		        //success logic
-		    	
-		    	Log.i("ss12", "Holy Shit we connected to the device via direct wifi");
-		    }
-		 
-		    @Override
-		    public void onFailure(int reason) {
-		    	Toast.makeText(MainActivity.this, "Connect failed. Retry.",
-                        Toast.LENGTH_SHORT).show();
-		    }
-		});
-		
-	}
-	
-	public void listen(View view) {
-		
 		mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
 	        @Override
 	        public void onSuccess() {
-	            Log.i("ss12", "discover peers started");
+	            Log.i("ss12", "discover peers started");	        	
 	            
 	            //mManager.requestPeers(mChannel, myPeerListListener);
                 
@@ -151,12 +153,51 @@ public class MainActivity extends Activity {
 	            Log.i("ss12", "discover peers - failed");
 	        }
 	    });
+		//Client client = new Client(2000, "192.168.45.139");
 		
-		//Server server = new Server(2000);
-		//String[] ips = IPFinder.getIPs();
-		//for(int i = 0; i < ips.length; i++) {
-		//	Log.i("ss12", ips[i]);
-		//}
+		
+		
 	}
+	
+	public void listen(View view) {
+		Server server = new Server(1234);
+		
+		
+	}
+	
+	private byte[] getLocalIPAddress() {
+	    try { 
+	        for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) { 
+	            NetworkInterface intf = en.nextElement(); 
+	            for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) { 
+	                InetAddress inetAddress = enumIpAddr.nextElement(); 
+	                if (!inetAddress.isLoopbackAddress()) { 
+	                    if (inetAddress instanceof Inet4Address) { // fix for Galaxy Nexus. IPv4 is easy to use :-) 
+	                        return inetAddress.getAddress(); 
+	                    } 
+	                    //return inetAddress.getHostAddress().toString(); // Galaxy Nexus returns IPv6 
+	                } 
+	            } 
+	        } 
+	    } catch (SocketException ex) { 
+	        //Log.e("AndroidNetworkAddressFactory", "getLocalIPAddress()", ex); 
+	    } catch (NullPointerException ex) { 
+	        //Log.e("AndroidNetworkAddressFactory", "getLocalIPAddress()", ex); 
+	    } 
+	    return null; 
+	}
+
+	private String getDottedDecimalIP(byte[] ipAddr) {
+	    //convert to dotted decimal notation:
+	    String ipAddrStr = "";
+	    for (int i=0; i<ipAddr.length; i++) {
+	        if (i > 0) {
+	            ipAddrStr += ".";
+	        }
+	        ipAddrStr += ipAddr[i]&0xFF;
+	    }
+	    return ipAddrStr;
+	}
+
 
 }
