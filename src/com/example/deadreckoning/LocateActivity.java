@@ -33,7 +33,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LocateActivity extends Activity implements LocationListener, Runnable {
+public class LocateActivity extends Activity {
 	
 	Location location;
 	TextView latitude;
@@ -54,7 +54,7 @@ public class LocateActivity extends Activity implements LocationListener, Runnab
 	private WifiP2pDeviceList deviceList;
 	private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
 	
-	PeerListListener peerListListener = new PeerListListener() {
+	/*PeerListListener peerListListener = new PeerListListener() {
         @Override
         public void onPeersAvailable(WifiP2pDeviceList peerList) {
 
@@ -95,19 +95,7 @@ public class LocateActivity extends Activity implements LocationListener, Runnab
         		});
             }
         }
-	};
-	
-	@Override
-	public void run() {
-		while(true) {
-			onLocationChanged(location);
-			try {
-				Thread.sleep(100);
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	};*/
 	
 	
 	@Override
@@ -117,7 +105,7 @@ public class LocateActivity extends Activity implements LocationListener, Runnab
 		setContentView(R.layout.activity_location);
 		
 		 //  Indicates a change in the Wi-Fi P2P status.
-	    intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
+	    /*intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
 
 	    // Indicates a change in the list of available peers.
 	    intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
@@ -137,36 +125,29 @@ public class LocateActivity extends Activity implements LocationListener, Runnab
 	    ///////////////////////////////////////////////////////////////////////////////////////
 	    
 	    
-	    //latitude = (TextView) findViewById(R.id.latitude);
-	    //longitude = (TextView) findViewById(R.id.longitude);
+	    latitude = (TextView) findViewById(R.id.latitude);
+	    longitude = (TextView) findViewById(R.id.longitude);
 	    
 	    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-	    // Define the criteria how to select the location provider -> use
-	    // default
+
 	    Criteria criteria = new Criteria();
 	    //criteria.setAccuracy(Criteria.ACCURACY_FINE);
 	    provider = locationManager.getBestProvider(criteria, false);
 	    location = locationManager.getLastKnownLocation(provider);
 	    Log.i("ss12", provider);
 
-	    // Initialize the location fields
 	    if (location != null) {
 	      System.out.println("Provider " + provider + " has been selected.");
 	      onLocationChanged(location);
 	    } else {
 	      latitude.setText("Location not available");
 	      longitude.setText("Location not available");
-	    }
-	    //if(!threadStarted) {
-	    //	Thread thread = new Thread(this);
-	    //	thread.start();
-	    //	threadStarted = true;
-	    //}
+	    }*/
 	}
 	
 	
 	//// not using this method anymore
-	@Override
+	/*@Override
 	public void onLocationChanged(Location location) {
 		double lat = location.getLatitude();
 	    double lng = location.getLongitude();
@@ -191,21 +172,21 @@ public class LocateActivity extends Activity implements LocationListener, Runnab
 	public void onProviderDisabled(String provider) {
 	    Toast.makeText(this, "Disabled provider " + provider,
 	        Toast.LENGTH_SHORT).show();
-	}
+	}*/
 	
 	@Override
 	protected void onResume() {
 	    super.onResume();
-	    receiver = new WiFiDirectBroadcastReceiver(mManager, mChannel, this, peerListListener);
-        registerReceiver(receiver, intentFilter);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, this);
+	    //receiver = new WiFiDirectBroadcastReceiver(mManager, mChannel, this, peerListListener);
+        //registerReceiver(receiver, intentFilter);
+        //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, this);
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
-		unregisterReceiver(receiver);
-		locationManager.removeUpdates(this);
+		//unregisterReceiver(receiver);
+		//locationManager.removeUpdates(this);
 	}
 
 	@Override

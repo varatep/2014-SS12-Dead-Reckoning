@@ -27,7 +27,7 @@ public class SplashActivity extends Activity {
 		Thread splashTimer = new Thread() {
 			public void run() {
 				try{
-					sleep(500);
+					sleep(1000);
 					invisButton.performLongClick();
 					
 					//test
@@ -39,9 +39,10 @@ public class SplashActivity extends Activity {
 				finally{
 					
 					while(tts.isSpeaking()) {
-						
+
 					}
-					Intent mainActivity = new Intent("android.intent.category.MENU");
+					tts.shutDownTTS();
+					Intent mainActivity = new Intent(SplashActivity.this, MainActivity.class);
 					startActivity(mainActivity);
 				}
 			}

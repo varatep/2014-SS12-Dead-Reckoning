@@ -21,6 +21,7 @@ public class TTSHandler {
     public TTSHandler(Context context) {
         this.context = context;
         mTts = new TextToSpeech(context, mInitListener);
+        mTts.setLanguage(Locale.ENGLISH);
         mTts.setSpeechRate((float) 1.1);
     }
 
@@ -42,6 +43,7 @@ public class TTSHandler {
                  }
                  Log.i("splashactivity", "checking goodToGo");
                  goodToGo = (result >= TextToSpeech.LANG_AVAILABLE);
+                 //goodToGo = true;
                  Log.i("splashactivity", "good to go:" + String.valueOf(goodToGo));
             }
             else {//creation of TextToSpeech was unsuccessful
