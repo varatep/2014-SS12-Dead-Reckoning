@@ -59,6 +59,12 @@ public class Client implements Runnable {
                             socket.getInputStream()));
             
             while (keepRunning) {
+            	try {
+	                String s = reader.readLine();
+	                Log.i("ss12", "read in " + String.valueOf(s));
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
 	        	String direction = "";
 	        	if(!LocateActivity.direction.equals(direction)) {
 	        	
@@ -66,12 +72,6 @@ public class Client implements Runnable {
                     writer.write(direction);
                     writer.flush();
 	        	}
-	        	try {
-	                String s = reader.readLine();
-	                Log.i("ss12", "read in " + String.valueOf(s));
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	            }
 	        }
             socket.close();
             writer.close();
