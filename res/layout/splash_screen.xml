@@ -30,6 +30,6 @@
     android:layout_alignParentTop="true"
     android:layout_marginLeft="39dp"
     android:text="button stuff"
-    android:visibility="visible" />
+    android:visibility="invisible" />
 
 </RelativeLayout>
