@@ -17,7 +17,6 @@ import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
 import android.provider.Settings;
 import android.util.Log;
 import dr.main.MainActivity;
-import dr.main.R;
 
 public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 
