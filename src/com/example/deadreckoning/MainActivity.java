@@ -5,6 +5,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +27,7 @@ public class MainActivity extends Activity {
 	private Button buttonHelp;
 	private TTSHandler tts;
 	private LocationListener locationListener;
+	private String user_name = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 
@@ -33,12 +36,23 @@ public class MainActivity extends Activity {
 		// First content view is the splash screen
 		setContentView(R.layout.activity_main);
 		
-		
-		//test
-		
 		buttonClient = (Button)findViewById(R.id.button1);
 		buttonServer = (Button)findViewById(R.id.button2);
 		buttonHelp = (Button)findViewById(R.id.button3);
+		
+		if (user_name == null){
+			final AccountManager manager = AccountManager.get(this);
+			final Account[] accounts = manager.getAccountsByType("com.google");
+			final int size = accounts.length;
+			String[] names = new String [size];
+			for (int i = 0; i < size; i++){
+				names[i] = accounts[i].name;	
+			}
+			buttonClient.setText(accounts[0].name);
+		}
+		//test
+		
+
 		
 		tts = new TTSHandler(this);
 		// Acquire a reference to the system Location Manager

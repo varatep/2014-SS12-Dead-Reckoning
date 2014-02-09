@@ -27,22 +27,16 @@ public class SplashActivity extends Activity {
 		Thread splashTimer = new Thread() {
 			public void run() {
 				try{
-					sleep(500);
-					invisButton.performLongClick();
-					
-					//test
+					sleep(300);
 				} 
-				catch(Exception e){
+				catch(InterruptedException e){
 					
 					e.printStackTrace();
 				}
 				finally{
-					
-					while(tts.isSpeaking()) {
-						
-					}
 					Intent mainActivity = new Intent("android.intent.category.MENU");
-					startActivity(mainActivity);
+					//startActivity(mainActivity);
+					invisButton.performLongClick();
 				}
 			}
 		};
