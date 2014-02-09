@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import Handlers.LocationHandler;
 import Handlers.TTSHandler;
 import Network.Client;
 import Network.Server;
