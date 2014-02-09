@@ -71,7 +71,7 @@ public class Client implements Runnable {
 	        		Log.i("ss12", "after - " + LocateActivity.direction);
 	        		direction = LocateActivity.direction;
                     writer.write(direction);
-                    writer.flush();
+                    //writer.flush();
 	        	}
 	        }
             socket.close();
