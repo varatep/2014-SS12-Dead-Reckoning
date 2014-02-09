@@ -62,12 +62,15 @@ public class Client implements Runnable {
             while (keepRunning) {
             	try {
 	                String s = reader.readLine();
-	                //socket.shutdownInput();
 	                Log.i("ss12", "read in " + String.valueOf(s) + "\n");
 	                reader.readLine();
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
+            	String direction = LocateActivity.direction + "\n";
+	        	//Log.i("ss12", direction);
+	        	writer.write(direction);
+	        	writer.flush();
             }
 	        	/*String direction = "";
 	        	Log.i("ss12", "before - " + LocateActivity.direction);

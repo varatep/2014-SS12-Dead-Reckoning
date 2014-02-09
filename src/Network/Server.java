@@ -57,10 +57,16 @@ public class Server implements Runnable {
 	
 	        while(keepRunning) {
 	        	String direction = LocateActivity.direction + "\n";
-	        	Log.i("ss12", direction);
+	        	//Log.i("ss12", direction);
 	        	writer.write(direction);
 	        	writer.flush();
-	        	//Thread.sleep(50);
+	        	try {
+	                String s = reader.readLine();
+	                Log.i("ss12", "read in " + String.valueOf(s));
+	                reader.readLine();
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
 	        }
 	        //while (keepRunning) {
 	        	/*String direction = "";
