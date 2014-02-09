@@ -20,7 +20,7 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="fill_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:layout_alignLeft="@+id/button1"
         android:layout_alignParentBottom="true"
         android:text="Help" 
@@ -30,7 +30,7 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="fill_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:layout_alignLeft="@+id/button3"
         android:layout_centerVertical="true"
         android:text="Look For Server"
@@ -39,7 +39,7 @@
     <Button
         android:id="@+id/button1"
         android:layout_width="fill_parent"
-        android:layout_height="120dp"
+        android:layout_height="130dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="Look For Client"

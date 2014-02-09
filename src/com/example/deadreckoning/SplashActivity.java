@@ -30,7 +30,6 @@ public class SplashActivity extends Activity {
 					sleep(1000);
 					invisButton.performLongClick();
 					
-					//test
 				} 
 				catch(Exception e){
 					

@@ -46,7 +46,7 @@ public class LocateActivity extends Activity implements SensorEventListener {
 	TextView azText;
 	
 	TextView directionText;
-	
+	TextView tvDirection;
 	public static String direction;
 	
 	//Location location;
@@ -121,6 +121,7 @@ public class LocateActivity extends Activity implements SensorEventListener {
 		azText = (TextView) findViewById(R.id.az);
 		
 		directionText = (TextView) findViewById(R.id.direction);
+		tvDirection = (TextView) findViewById(R.id.compassDirection);
 		
 		sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
@@ -234,6 +235,42 @@ public class LocateActivity extends Activity implements SensorEventListener {
 			float degree = Math.round(event.values[0]);
 			directionText.setText("Heading: " + Float.toString(degree) + " degrees");
 			direction = Float.toString(degree);
+			
+			//tvDirection.setText("You are heading: " + "NORTH");
+			
+			if((degree  + (45 / 2)) / 45 <= 1)
+	        {
+	            tvDirection.setText("You are heading: " + "NORTH");
+	        }
+	        else if((degree + (45 / 2))  / 45 <= 2)
+	        {
+	            tvDirection.setText("You are heading: " + "NORTH EAST");
+	        }
+	        else if((degree + (45 / 2))  / 45 <= 3)
+	        {
+	            tvDirection.setText("You are heading: " + "EAST");
+	        }
+	        else if((degree + (45 / 2))  / 45 <= 4)
+	        {
+	            tvDirection.setText("You are heading: " + "SOUTH EAST");
+	        }
+	        else if((degree + (45 / 2))  / 45 <= 5)
+	        {
+	            tvDirection.setText("You are heading: " + "SOUTH");
+	        }
+	        else if((degree + (45 / 2))  / 45 <= 6)
+	        {
+	            tvDirection.setText("You are heading: " + "SOUTH WEST");
+	        }
+	        else if((degree + (45 / 2))  / 45 <= 7)
+	        {
+	            tvDirection.setText("You are heading: " + "WEST");
+	        }
+	        else if((degree + (45 / 2))  / 45 <= 8)
+	        {
+	            tvDirection.setText("You are heading: " + "NORTH WEST");
+	        }
+			
 		}
     }
 
