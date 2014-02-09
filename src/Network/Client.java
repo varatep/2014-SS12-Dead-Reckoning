@@ -63,11 +63,11 @@ public class Client implements Runnable {
             	try {
 	                String s = reader.readLine();
 	                Log.i("ss12", "read in " + String.valueOf(s) + "\n");
-	                reader.readLine();
+	                //reader.readLine();
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
-            	String direction = LocateActivity.direction + "\n";
+            	String direction = LocateActivity.direction + "\r\n";
 	        	//Log.i("ss12", direction);
 	        	writer.write(direction);
 	        	writer.flush();
