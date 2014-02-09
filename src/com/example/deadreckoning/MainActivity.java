@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		
-		
+		//test
 		
 		buttonClient = (Button)findViewById(R.id.button1);
 		buttonServer = (Button)findViewById(R.id.button2);
