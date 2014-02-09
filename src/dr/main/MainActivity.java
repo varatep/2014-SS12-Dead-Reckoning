@@ -1,6 +1,7 @@
 package dr.main;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -70,7 +71,7 @@ public class MainActivity extends Activity {
         		    public void onSuccess() {
         		        //success logic
         		    	String ip = getDottedDecimalIP(getLocalIPAddress());
-        		    	Client client = new Client(1240, ip);
+        		    	Client client = new Client(1243, ip);
         		    	Log.i("ss12", "Holy Shit we connected to the device via direct wifi");
         		    }
         		 
@@ -130,6 +131,20 @@ public class MainActivity extends Activity {
 	}
 	
 	public void connect(View view) {
+		
+		WifiP2pManager manager = (WifiP2pManager) this.getSystemService(Context.WIFI_P2P_SERVICE);
+		Channel channel = manager.initialize(this, this.getMainLooper(), null);
+
+		try {
+		            Method method1 = manager.getClass().getMethod("enableP2p", Channel.class);
+		            method1.invoke(manager, channel);
+		            //Toast.makeText(getActivity(), "method found",
+		             //       Toast.LENGTH_SHORT).show();
+		} catch (Exception e) {
+		            //Toast.makeText(getActivity(), "method did not found",
+		                 //   Toast.LENGTH_SHORT).show();
+		        }
+		
 		mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
 	        @Override
 	        public void onSuccess() {
@@ -160,7 +175,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void listen(View view) {
-		Server server = new Server(1240);
+		Server server = new Server(1245);
 		
 		
 	}
