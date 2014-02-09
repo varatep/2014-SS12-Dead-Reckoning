@@ -73,8 +73,8 @@ public class Client implements Runnable {
 	        		Log.i("ss12", "after - " + LocateActivity.direction);
 	        		direction = LocateActivity.direction;
                     writer.write(direction);
-                    socket.shutdownOutput();
-                    //writer.flush();
+                    //socket.shutdownOutput();
+                    writer.flush();
 	        	}
 	        	Thread.sleep(50);
 	        }

@@ -63,8 +63,8 @@ public class Server implements Runnable {
 	        		Log.i("ss12", "after - " + LocateActivity.direction);
 	        		direction = LocateActivity.direction;
                     writer.write("hello");
-                    clientSocket.shutdownOutput();
-                    //writer.flush();
+                    //clientSocket.shutdownOutput();
+                    writer.flush();
 	        	}
 	        	try {
 	                String s = reader.readLine();
