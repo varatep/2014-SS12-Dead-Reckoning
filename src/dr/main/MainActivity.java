@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
 	
 	public void connect(View view) {
 		
-		Client client = new Client(8888, "172.31.208.243");
+		Client client = new Client(8889, "172.31.208.243");
 		
 		/*mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
 	        @Override
@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
 	
 	public void listen(View view) {
 		
-		Server server = new Server(1025);
+		Server server = new Server(8889);
 		
 	}
 

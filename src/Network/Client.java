@@ -35,7 +35,7 @@ public class Client implements Runnable {
         	Log.i("ss12", "before connection");
         	Socket socket = new Socket();
         	socket.bind(null);
-            socket.connect((new InetSocketAddress(ip, port)), 500);
+            socket.connect((new InetSocketAddress(ip, port)));
             socket.setReuseAddress(true);
             socket.setKeepAlive(true);
 
