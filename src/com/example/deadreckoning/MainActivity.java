@@ -17,6 +17,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import Handlers.LocationHandler;
 import Handlers.TTSHandler;
+import Network.Client;
+import Network.Server;
 
 public class MainActivity extends Activity {
 
@@ -53,6 +55,7 @@ public class MainActivity extends Activity {
 			{
 				tts.speakPhrase(buttonClient.getText().toString());
 				tts.shutDownTTS();
+				Client client = new Client(2346, "192.168.45.139");
 				startActivity(new Intent(MainActivity.this, LocateActivity.class));
 			}
 		});
@@ -64,6 +67,7 @@ public class MainActivity extends Activity {
 			{
 				tts.speakPhrase(buttonServer.getText().toString());
 				tts.shutDownTTS();
+				Server server = new Server(2346);
 				startActivity(new Intent(MainActivity.this, LocateActivity.class));
 			}
 		});
