@@ -66,8 +66,9 @@ public class Client implements Runnable {
 	                e.printStackTrace();
 	            }
 	        	String direction = "";
+	        	Log.i("ss12", "before - " + LocateActivity.direction);
 	        	if(!LocateActivity.direction.equals(direction)) {
-	        	
+	        		Log.i("ss12", "after - " + LocateActivity.direction);
 	        		direction = LocateActivity.direction;
                     writer.write(direction);
                     writer.flush();

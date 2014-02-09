@@ -309,6 +309,7 @@ public class LocateActivity extends Activity implements SensorEventListener {
 	
 	@Override
 	public void onDestroy() {
+		super.onDestroy();
 		if(MainActivity.server != null) {
 			MainActivity.server.shutDown();
 		}
