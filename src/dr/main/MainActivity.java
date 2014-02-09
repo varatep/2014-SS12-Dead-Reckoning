@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
         		    public void onSuccess() {
         		        //success logic
         		    	String ip = getDottedDecimalIP(getLocalIPAddress());
-        		    	Client client = new Client(1235, ip);
+        		    	Client client = new Client(1240, ip);
         		    	Log.i("ss12", "Holy Shit we connected to the device via direct wifi");
         		    }
         		 
@@ -160,7 +160,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void listen(View view) {
-		Server server = new Server(1235);
+		Server server = new Server(1240);
 		
 		
 	}
