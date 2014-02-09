@@ -23,6 +23,7 @@ import android.content.IntentFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -32,7 +33,7 @@ public class MainActivity extends Activity {
 	WiFiDirectBroadcastReceiver receiver;
 	private PeerListListener myPeerListListener;
 	private WifiP2pDeviceList deviceList;
-	private List peers = new ArrayList();
+	private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
 	
 	PeerListListener peerListListener = new PeerListListener() {
         @Override
@@ -104,7 +105,7 @@ public class MainActivity extends Activity {
 		
 		//Client client = new Client(2000, "192.168.45.139");
 		
-		WifiP2pDevice device = null;
+		WifiP2pDevice device = peers.get(0);
 		WifiP2pConfig config = new WifiP2pConfig();
 		config.deviceAddress = device.deviceAddress;
 		mManager.connect(mChannel, config, new ActionListener() {
@@ -112,11 +113,14 @@ public class MainActivity extends Activity {
 		    @Override
 		    public void onSuccess() {
 		        //success logic
+		    	
+		    	Log.i("ss12", "Holy Shit we connected to the device via direct wifi");
 		    }
 		 
 		    @Override
 		    public void onFailure(int reason) {
-		        //failure logic
+		    	Toast.makeText(MainActivity.this, "Connect failed. Retry.",
+                        Toast.LENGTH_SHORT).show();
 		    }
 		});
 		
