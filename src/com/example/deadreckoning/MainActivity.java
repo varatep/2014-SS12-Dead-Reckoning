@@ -51,8 +51,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				//tts.speakPhrase(buttonClient.getText().toString());
-				startActivity(new Intent(MainActivity.this, MainActivity.class));
+				tts.speakPhrase(buttonClient.getText().toString());
+				startActivity(new Intent("android.intent.action.LOCATE"));
 			}
 		});
 		
@@ -61,8 +61,8 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				//tts.speakPhrase(buttonServer.getText().toString());
-				startActivity(new Intent(MainActivity.this, MainActivity.class));
+				tts.speakPhrase(buttonServer.getText().toString());
+				startActivity(new Intent(MainActivity.this, LocateActivity.class));
 			}
 		});
 		
@@ -71,8 +71,9 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				//tts.speakPhrase(buttonHelp.getText().toString());
+				tts.speakPhrase(buttonHelp.getText().toString());
 				startActivity(new Intent(MainActivity.this, HelpActivity.class));
+				
 			}
 		});
 		
@@ -101,7 +102,7 @@ public class MainActivity extends Activity {
             	tts.speakPhrase(buttonHelp.getText().toString());
                 return false;
             }
-        });		
+        });
 	}
 
 	@Override
@@ -111,4 +112,11 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	protected void onDestroy()
+	{
+		Log.i("ss12", "on destroy");
+		tts.shutDownTTS();
+		super.onDestroy();
+	}
 }

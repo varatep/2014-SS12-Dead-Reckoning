@@ -3,6 +3,7 @@ package com.example.deadreckoning;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,6 +30,7 @@ public class HelpActivity extends Activity {
 			public void onClick(View v)
 			{
 				//tts.speakPhrase(buttonReturn.getText().toString());
+				tts.shutDownTTS();
 				startActivity(new Intent(HelpActivity.this, MainActivity.class));
 			}
 		});
@@ -49,5 +51,12 @@ public class HelpActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
+	@Override
+	protected void onDestroy()
+	{
+		Log.i("ss12", "on destroy");
+		tts.shutDownTTS();
+		super.onDestroy();
+	}
 }

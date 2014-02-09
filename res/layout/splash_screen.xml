@@ -10,17 +10,6 @@
     android:visibility="visible"
     tools:context=".SplashActivity" >
 
-<TextView
-    android:id="@+id/splashText"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="188dp"
-    android:gravity="center"
-    android:text="@string/splash"
-    android:textSize="18dp" />
-
 <Button
     android:id="@+id/invisButton"
     style="?android:attr/buttonStyleSmall"
@@ -31,5 +20,15 @@
     android:layout_marginLeft="39dp"
     android:text="button stuff"
     android:visibility="invisible" />
+
+<TextView
+    android:id="@+id/splashText"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:gravity="center"
+    android:text="@string/splash"
+    android:textSize="18dp" />
 
 </RelativeLayout>
