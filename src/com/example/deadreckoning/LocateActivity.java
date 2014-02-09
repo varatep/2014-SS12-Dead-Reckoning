@@ -10,13 +10,11 @@ import java.util.List;
 
 import Network.Client;
 import Network.Server;
-import Network.WiFiDirectBroadcastReceiver;
 import android.app.Activity;
 import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationManager;
