@@ -45,6 +45,10 @@ public class LocateActivity extends Activity implements SensorEventListener {
 	TextView ayText;
 	TextView azText;
 	
+	TextView directionText;
+	
+	public static String direction;
+	
 	//Location location;
 	//TextView latitude;
 	//TextView longitude;
@@ -116,9 +120,11 @@ public class LocateActivity extends Activity implements SensorEventListener {
 		ayText = (TextView) findViewById(R.id.ay);
 		azText = (TextView) findViewById(R.id.az);
 		
+		directionText = (TextView) findViewById(R.id.direction);
+		
 		sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-        //sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
+        sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
 
 		
 		 //  Indicates a change in the Wi-Fi P2P status.
@@ -225,11 +231,10 @@ public class LocateActivity extends Activity implements SensorEventListener {
 			azText.setText(Double.toString(az));
 		}
 		if (event.sensor.getType()==Sensor.TYPE_ORIENTATION) {
-			
+			float degree = Math.round(event.values[0]);
+			directionText.setText("Heading: " + Float.toString(degree) + " degrees");
+			direction = Float.toString(degree);
 		}
-		//Log.i("ss12", "ax: " + ax);
-		//Log.i("ss12", "ay: " + ay);
-		//Log.i("ss12", "az: " + az);
     }
 
 	@Override
@@ -300,6 +305,16 @@ public class LocateActivity extends Activity implements SensorEventListener {
 	        ipAddrStr += ipAddr[i]&0xFF;
 	    }
 	    return ipAddrStr;
+	}
+	
+	@Override
+	public void onDestroy() {
+		if(MainActivity.server != null) {
+			MainActivity.server.shutDown();
+		}
+		if(MainActivity.server != null) {
+			MainActivity.server.shutDown();
+		}
 	}
 	
 }

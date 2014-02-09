@@ -2,6 +2,7 @@ package Network;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
@@ -9,6 +10,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
+
+import com.example.deadreckoning.LocateActivity;
 
 import android.util.Log;
 
@@ -18,6 +21,9 @@ public class Client implements Runnable {
 	Queue<String> outgoingCommandQueue;
 	int port;
 	String ip;
+	Socket socket;
+	BufferedWriter writer;
+	BufferedReader reader;
 	
     public Client(int port, String ip) {
     	this.ip = ip;
@@ -27,13 +33,17 @@ public class Client implements Runnable {
     	Thread thread = new Thread(this);
     	thread.start();
     }
+    
+    public synchronized void shutDown() {
+    	keepRunning = false;
+    }
 
 
     @Override
     public void run() {
         try {
         	Log.i("ss12", "before connection");
-        	Socket socket = new Socket();
+        	socket = new Socket();
         	socket.bind(null);
             socket.connect((new InetSocketAddress(ip, port)), 0);
             socket.setReuseAddress(true);
@@ -41,34 +51,54 @@ public class Client implements Runnable {
 
             Log.i("ss12", "connection established");
             
-            BufferedWriter writer = new BufferedWriter(
+            writer = new BufferedWriter(
                     new OutputStreamWriter(
                             socket.getOutputStream()));
-            BufferedReader reader = new BufferedReader(
+            reader = new BufferedReader(
                     new InputStreamReader(
                             socket.getInputStream()));
-            //while (keepRunning) {
-
-                //if (outgoingCommandQueue.size() > 0) {
-                    //final String data = outgoingCommandQueue.remove();
-            		String data = "I'm talking!!";
-                    writer.write(data);
+            
+            while (keepRunning) {
+	        	String direction = "";
+	        	if(!LocateActivity.direction.equals(direction)) {
+	        	
+	        		direction = LocateActivity.direction;
+                    writer.write(direction);
                     writer.flush();
-                    socket.close();
-                //}
-
-               // try {
-               //     final String s = reader.readLine();
-
-                //} catch (Exception e) {
-                	
-                //}
-
-            //}
+	        	}
+	        	try {
+	                String s = reader.readLine();
+	                Log.i("ss12", "read in " + String.valueOf(s));
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
+            socket.close();
             writer.close();
 
 
         } catch (Exception e) {
+        	if(socket != null) {
+        		try {
+					socket.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+        	}
+        	if(writer != null) {
+        		try {
+					writer.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+        	}
+        	if(reader != null) {
+        		try {
+					reader.close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+        	}
             e.printStackTrace();
         }
     }

@@ -27,6 +27,9 @@ public class MainActivity extends Activity {
 	private TTSHandler tts;
 	private LocationListener locationListener;
 	
+	public static Client client;
+	public static Server server;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);
@@ -54,7 +57,7 @@ public class MainActivity extends Activity {
 			{
 				tts.speakPhrase(buttonClient.getText().toString());
 				tts.shutDownTTS();
-				Client client = new Client(2346, "192.168.45.139");
+				client = new Client(2346, "192.168.45.139");
 				startActivity(new Intent(MainActivity.this, LocateActivity.class));
 			}
 		});
@@ -66,7 +69,7 @@ public class MainActivity extends Activity {
 			{
 				tts.speakPhrase(buttonServer.getText().toString());
 				tts.shutDownTTS();
-				Server server = new Server(2346);
+				server = new Server(2346);
 				startActivity(new Intent(MainActivity.this, LocateActivity.class));
 			}
 		});
@@ -121,8 +124,15 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onDestroy()
 	{
+		super.onDestroy();
 		Log.i("ss12", "on destroy - main activity");
 		tts.shutDownTTS();
-		super.onDestroy();
+		if(server != null) {
+			server.shutDown();
+		}
+		if(client != null) {
+			client.shutDown();
+		}
+		
 	}
 }

@@ -8,6 +8,9 @@ import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import com.example.deadreckoning.LocateActivity;
+
 import android.util.Log;
 
 public class Server implements Runnable {
@@ -18,10 +21,17 @@ public class Server implements Runnable {
 	ServerSocket serverSocket;
 	Socket clientSocket;
 	
+	BufferedReader reader;
+	BufferedWriter writer;
+	
     public Server(int port) {
     	this.port = port;
         Thread thread = new Thread(this);
         thread.start();
+    }
+    
+    public synchronized void shutDown() {
+    	keepRunning = false;
     }
     
     public void run() {
@@ -38,21 +48,24 @@ public class Server implements Runnable {
 	        clientSocket.setSoTimeout(0);
 	
 	        Log.i("ss12", "connection established");
-	        BufferedReader reader = new BufferedReader(
+	        reader = new BufferedReader(
 	                new InputStreamReader(
 	                        clientSocket.getInputStream()));
-	        BufferedWriter writer = new BufferedWriter(
+	        writer = new BufferedWriter(
 	                new OutputStreamWriter(
 	                        clientSocket.getOutputStream()));
 	
 	
 	        while (keepRunning) {
-	
-	            try {
+	        	String direction = "";
+	        	if(!LocateActivity.direction.equals(direction)) {
+	        	
+	        		direction = LocateActivity.direction;
+                    writer.write(direction);
+                    writer.flush();
+	        	}
+	        	try {
 	                String s = reader.readLine();
-	                if(s != null) {
-	                	keepRunning = false;
-	                }
 	                Log.i("ss12", "read in " + String.valueOf(s));
 	            } catch (IOException e) {
 	                e.printStackTrace();
@@ -61,6 +74,8 @@ public class Server implements Runnable {
 	
 	        clientSocket.close();
 	        serverSocket.close();
+	        writer.close();
+	        reader.close();
 	    } catch (Exception e) {
 	    	try {
 		    	if(clientSocket != null) {
@@ -68,6 +83,12 @@ public class Server implements Runnable {
 		    	}
 		    	if(serverSocket != null) {
 					serverSocket.close();
+		    	}
+		    	if(writer != null) {
+		    		writer.close();
+		    	}
+		    	if(reader != null) {
+		    		reader.close();
 		    	}
 	    	} catch(Exception f) {
 	    		f.printStackTrace();
