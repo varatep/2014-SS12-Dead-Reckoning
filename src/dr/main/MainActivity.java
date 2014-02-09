@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
             //((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
             Log.i("ss12", peers.toString());
             if (peers.size() == 0) {
-                Log.d("ss12", "No devices found");
+                Log.i("ss12", "No devices found");
                 return;
             }
             else {
@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
         		    public void onSuccess() {
         		        //success logic
         		    	String ip = getDottedDecimalIP(getLocalIPAddress());
-        		    	Client client = new Client(1243, ip);
+        		    	Client client = new Client(1247, ip);
         		    	Log.i("ss12", "Holy Shit we connected to the device via direct wifi");
         		    }
         		 
@@ -132,7 +132,7 @@ public class MainActivity extends Activity {
 	
 	public void connect(View view) {
 		
-		WifiP2pManager manager = (WifiP2pManager) this.getSystemService(Context.WIFI_P2P_SERVICE);
+		/*WifiP2pManager manager = (WifiP2pManager) this.getSystemService(Context.WIFI_P2P_SERVICE);
 		Channel channel = manager.initialize(this, this.getMainLooper(), null);
 
 		try {
@@ -148,34 +148,22 @@ public class MainActivity extends Activity {
 		mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
 	        @Override
 	        public void onSuccess() {
-	            Log.i("ss12", "discover peers started");	        	
-	            
-	            //mManager.requestPeers(mChannel, myPeerListListener);
-                
-                /*myPeerListListener.onPeersAvailable(deviceList);
-                Collection<WifiP2pDevice> c = deviceList.getDeviceList();
-                ArrayList<WifiP2pDevice> describedList = new ArrayList<WifiP2pDevice>(c);
-                
-                if(describedList != null) {
-                	for(int i = 0; i < describedList.size(); i++) {
-                		Log.i("ss12", describedList.get(i).deviceName);
-                	}
-                }*/
+	            Log.i("ss12", "discover peers started");
 	        }
 
 	        @Override
 	        public void onFailure(int reasonCode) {
-	            Log.i("ss12", "discover peers - failed");
+	            Log.i("ss12", "discover peers - failed " + reasonCode);
 	        }
-	    });
-		//Client client = new Client(2000, "192.168.45.139");
+	    });*/
+		Client client = new Client(2000, "192.168.45.139");
 		
 		
 		
 	}
 	
 	public void listen(View view) {
-		Server server = new Server(1245);
+		Server server = new Server(1247);
 		
 		
 	}
