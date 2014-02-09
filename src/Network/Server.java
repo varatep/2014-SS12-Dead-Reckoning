@@ -63,7 +63,7 @@ public class Server implements Runnable {
 	        		Log.i("ss12", "after - " + LocateActivity.direction);
 	        		direction = LocateActivity.direction;
                     writer.write("hello");
-                    //writer.flush();
+                    writer.flush();
 	        	}
 	        	try {
 	                String s = reader.readLine();
@@ -71,6 +71,7 @@ public class Server implements Runnable {
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
+	        	Thread.sleep(50);
 	        }
 	
 	        clientSocket.close();
