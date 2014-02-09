@@ -20,29 +20,29 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button2"
+        android:layout_height="120dp"
+        android:layout_alignLeft="@+id/button1"
         android:layout_alignParentBottom="true"
         android:text="Help" 
         android:textSize="36dp"
         />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button2"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/splashText"
-        android:layout_below="@+id/splashText"
-        android:text="Look For Client"
+        android:layout_height="120dp"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_centerVertical="true"
+        android:text="Look For Server"
         android:textSize="36dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_centerVertical="true"
-        android:text="Look For Server"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="Look For Client"
         android:textSize="36dp" />
 
 </RelativeLayout>
