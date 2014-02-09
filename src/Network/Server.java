@@ -14,6 +14,9 @@ public class Server implements Runnable {
 	boolean keepRunning = true;
 	int port;
 	
+	ServerSocket serverSocket;
+	Socket clientSocket;
+	
     public Server(int port) {
     	this.port = port;
         Thread thread = new Thread(this);
@@ -22,11 +25,11 @@ public class Server implements Runnable {
     
     public void run() {
 	    try {
-	        ServerSocket serverSocket = new ServerSocket(port);
+	        serverSocket = new ServerSocket(port);
 	        serverSocket.setReuseAddress(true);
 	        Log.i("ss12", "waiting for connection");
 	
-	        Socket clientSocket = serverSocket.accept();
+	        clientSocket = serverSocket.accept();
 	        clientSocket.setKeepAlive(true);
 	        clientSocket.setTcpNoDelay(true);
 	
@@ -54,6 +57,16 @@ public class Server implements Runnable {
 	        clientSocket.close();
 	        serverSocket.close();
 	    } catch (Exception e) {
+	    	try {
+		    	if(clientSocket != null) {
+		    		clientSocket.close();
+		    	}
+		    	if(serverSocket != null) {
+					serverSocket.close();
+		    	}
+	    	} catch(Exception f) {
+	    		f.printStackTrace();
+	    	}
 	        e.printStackTrace();
 	    }
     }
