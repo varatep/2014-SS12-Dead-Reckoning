@@ -5,6 +5,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Vibrator;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -16,59 +17,46 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
-import Handlers.LocationHandler;
 import Handlers.TTSHandler;
+import Handlers.AccessibilityHandler;
+import Handlers.VibrationHandler;
 
 public class MainActivity extends Activity {
 
 	private Button buttonClient; 
 	private Button buttonServer;
 	private Button buttonHelp;
-	private TTSHandler tts;
 	private LocationListener locationListener;
 	private String user_name = null;
+	private AccessibilityHandler access;
+	Vibrator vibe;
+	VibrationHandler vibrationHandler;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 
 		super.onCreate(savedInstanceState);
-		
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// First content view is the splash screen
 		setContentView(R.layout.activity_main);
 		
 		buttonClient = (Button)findViewById(R.id.button1);
 		buttonServer = (Button)findViewById(R.id.button2);
 		buttonHelp = (Button)findViewById(R.id.button3);
-		
-		if (user_name == null){
-			final AccountManager manager = AccountManager.get(this);
-			final Account[] accounts = manager.getAccountsByType("com.google");
-			final int size = accounts.length;
-			String[] names = new String [size];
-			for (int i = 0; i < size; i++){
-				names[i] = accounts[i].name;	
-			}
-			buttonClient.setText(accounts[0].name);
-		}
-		//test
-		
 
-		
-		tts = new TTSHandler(this);
-		// Acquire a reference to the system Location Manager
-		//LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-		
-		//locationListener = new LocationListener(this);
-		
-		// Register the listener with the Location Manager to receive location updates
-		//locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, (long)0.0, (float)0.0, locationListener);
-		
+		access = new AccessibilityHandler(this);
+        vibrationHandler = new VibrationHandler(this);
+        vibrationHandler.pulseLose();
+		initializeVibrator();
+
 		buttonClient.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				//tts.speakPhrase(buttonClient.getText().toString());
+				access.announce(buttonClient.getText().toString());
 				startActivity(new Intent(MainActivity.this, MainActivity.class));
 			}
 		});
@@ -78,7 +66,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				//tts.speakPhrase(buttonServer.getText().toString());
+				access.announce(buttonServer.getText().toString());
 				startActivity(new Intent(MainActivity.this, MainActivity.class));
 			}
 		});
@@ -88,7 +76,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				//tts.speakPhrase(buttonHelp.getText().toString());
+				access.announce(buttonHelp.getText().toString());
 				startActivity(new Intent(MainActivity.this, HelpActivity.class));
 			}
 		});
@@ -97,7 +85,7 @@ public class MainActivity extends Activity {
             @Override
             public boolean onLongClick(View v) 
             {
-            	tts.speakPhrase(buttonClient.getText().toString());
+            	access.announce(buttonClient.getText().toString());
                 return false;
             }
         });
@@ -106,7 +94,7 @@ public class MainActivity extends Activity {
             @Override
             public boolean onLongClick(View v) 
             {
-            	tts.speakPhrase(buttonServer.getText().toString());
+            	access.announce(buttonServer.getText().toString());
                 return false;
             }
         });
@@ -115,11 +103,15 @@ public class MainActivity extends Activity {
             @Override
             public boolean onLongClick(View v) 
             {
-            	tts.speakPhrase(buttonHelp.getText().toString());
+            	access.announce(buttonHelp.getText().toString());
                 return false;
             }
         });		
 	}
+	
+    void initializeVibrator() {
+        vibe = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
