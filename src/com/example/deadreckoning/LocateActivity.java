@@ -347,7 +347,7 @@ public class LocateActivity extends Activity implements SensorEventListener {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		Log.i("ss12", "shutting down sockets");
+		Log.i("ss12", "shutting down sockets - LocateActivity");
 		if(MainActivity.server != null) {
 			MainActivity.server.shutDown();
 		}

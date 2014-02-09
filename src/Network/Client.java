@@ -59,14 +59,16 @@ public class Client implements Runnable {
                     new InputStreamReader(
                             socket.getInputStream()));
             
-            //while (keepRunning) {
+            while (keepRunning) {
             	try {
 	                String s = reader.readLine();
 	                //socket.shutdownInput();
-	                Log.i("ss12", "read in " + String.valueOf(s));
+	                Log.i("ss12", "read in " + String.valueOf(s) + "\n");
+	                reader.readLine();
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
+            }
 	        	/*String direction = "";
 	        	Log.i("ss12", "before - " + LocateActivity.direction);
 	        	if(!LocateActivity.direction.equals(direction)) {
@@ -78,8 +80,10 @@ public class Client implements Runnable {
 	        	}
 	        	Thread.sleep(50);*/
 	        //}
-            socket.close();
+            
+            reader.close();
             writer.close();
+            socket.close();
 
 
         } catch (Exception e) {
