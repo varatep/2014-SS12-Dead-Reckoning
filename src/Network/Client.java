@@ -59,7 +59,7 @@ public class Client implements Runnable {
                     new InputStreamReader(
                             socket.getInputStream()));
             
-            //while (keepRunning) {
+            while (keepRunning) {
             	try {
 	                String s = reader.readLine();
 	                //socket.shutdownInput();
@@ -67,6 +67,7 @@ public class Client implements Runnable {
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
+            }
 	        	/*String direction = "";
 	        	Log.i("ss12", "before - " + LocateActivity.direction);
 	        	if(!LocateActivity.direction.equals(direction)) {

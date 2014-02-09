@@ -55,9 +55,10 @@ public class Server implements Runnable {
 	        writer = new PrintWriter(
 	                        clientSocket.getOutputStream());
 	
-	
-	        writer.write("hello");
-	        
+	        while(keepRunning) {
+	        	writer.write("hello");
+	        	writer.flush();
+	        }
 	        //while (keepRunning) {
 	        	/*String direction = "";
 	        	Log.i("ss12", "before - " + LocateActivity.direction);
