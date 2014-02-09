@@ -4,5 +4,5 @@
     <string name="app_name">Dead Reckoning</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Main Screen</string>
-
+	<string name="description">Welcome to the splash screen.</string>
 </resources>

@@ -7,17 +7,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:visibility="visible"
     tools:context=".SplashActivity" >
 
 <TextView
-    android:id="@+id/textView1"
+    android:id="@+id/splashText"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="188dp"
     android:gravity="center"
-    android:text="This is a splash screen test that will appear for 5 seconds."
+    android:text="@string/description"
     android:textSize="18dp" />
+
+<Button
+    android:id="@+id/invisButton"
+    style="?android:attr/buttonStyleSmall"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/splashText"
+    android:layout_alignParentTop="true"
+    android:layout_marginLeft="39dp"
+    android:text="button stuff"
+    android:visibility="visible" />
 
 </RelativeLayout>
