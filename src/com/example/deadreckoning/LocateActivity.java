@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import Handlers.TTSHandler;
 import Network.Client;
 import Network.Server;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -29,6 +31,7 @@ import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pManager.ActionListener;
 import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
@@ -48,6 +51,8 @@ public class LocateActivity extends Activity implements SensorEventListener {
 	TextView directionText;
 	TextView tvDirection;
 	public static String direction;
+	
+	private TTSHandler tts;
 	
 	//Location location;
 	//TextView latitude;
@@ -116,6 +121,8 @@ public class LocateActivity extends Activity implements SensorEventListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_location);
 		
+		
+		
 		axText = (TextView) findViewById(R.id.ax);
 		ayText = (TextView) findViewById(R.id.ay);
 		azText = (TextView) findViewById(R.id.az);
@@ -126,8 +133,32 @@ public class LocateActivity extends Activity implements SensorEventListener {
 		sensorManager=(SensorManager) getSystemService(SENSOR_SERVICE);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(this, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION), SensorManager.SENSOR_DELAY_GAME);
-
+        
+        tts = new TTSHandler(this);
 		
+        
+        Thread speechTimer = new Thread() {
+			public void run() {
+				do {
+					try{
+						tts.speakPhrase(tvDirection.getText().toString());
+						sleep(5000);
+					}
+					catch(Exception e){
+						
+						e.printStackTrace();
+					}
+					finally{
+					}
+				} while(true);
+			}
+		};
+		
+		
+		
+		speechTimer.start();
+        
+        
 		 //  Indicates a change in the Wi-Fi P2P status.
 	    /*intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
 
@@ -240,6 +271,7 @@ public class LocateActivity extends Activity implements SensorEventListener {
 			
 			if((degree  + (45 / 2)) / 45 <= 1)
 	        {
+				
 	            tvDirection.setText("You are heading: " + "NORTH");
 	        }
 	        else if((degree + (45 / 2))  / 45 <= 2)
@@ -270,6 +302,9 @@ public class LocateActivity extends Activity implements SensorEventListener {
 	        {
 	            tvDirection.setText("You are heading: " + "NORTH WEST");
 	        }
+			
+			
+			
 			
 		}
     }
@@ -347,6 +382,7 @@ public class LocateActivity extends Activity implements SensorEventListener {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		tts.shutDownTTS();
 		Log.i("ss12", "shutting down sockets - LocateActivity");
 		if(MainActivity.server != null) {
 			MainActivity.server.shutDown();
