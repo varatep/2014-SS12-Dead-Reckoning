@@ -17,16 +17,26 @@
             android:name="com.example.deadreckoning.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
+                <action android:name="android.intent.category.MENU" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            
+            
+            
+        </activity>
+        
+        <activity android:name=".SplashActivity">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".HelpActivity"
-            >
+        
+        <activity android:name=".HelpActivity">
             
         </activity>
+        
+        
     </application>
 
 </manifest>
