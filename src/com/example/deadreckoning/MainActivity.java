@@ -30,13 +30,13 @@ public class MainActivity extends Activity {
 		buttonServer = (Button)findViewById(R.id.button2);
 		buttonHelp = (Button)findViewById(R.id.button3);
 		
-		
+		//fasdf
 		buttonClient.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				startActivity(new Intent(MainActivity.this, SplashActivity.class));
+				startActivity(new Intent(MainActivity.this, MainActivity.class));
 			}
 		});
 		
