@@ -59,7 +59,7 @@ public class Client implements Runnable {
                     new InputStreamReader(
                             socket.getInputStream()));
             
-            while (keepRunning) {
+            //while (keepRunning) {
             	try {
 	                String s = reader.readLine();
 	                socket.shutdownInput();
@@ -77,7 +77,7 @@ public class Client implements Runnable {
                     writer.flush();
 	        	}
 	        	Thread.sleep(50);
-	        }
+	        //}
             socket.close();
             writer.close();
 

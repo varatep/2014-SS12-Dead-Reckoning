@@ -56,7 +56,7 @@ public class Server implements Runnable {
 	                        clientSocket.getOutputStream());
 	
 	
-	        while (keepRunning) {
+	        //while (keepRunning) {
 	        	String direction = "";
 	        	Log.i("ss12", "before - " + LocateActivity.direction);
 	        	if(!LocateActivity.direction.equals(direction)) {
@@ -74,7 +74,7 @@ public class Server implements Runnable {
 	                e.printStackTrace();
 	            }
 	        	Thread.sleep(50);
-	        }
+	        //}
 	
 	        clientSocket.close();
 	        serverSocket.close();
