@@ -17,16 +17,13 @@ import android.widget.TextView;
 
 public class SplashActivity extends Activity {
 	private TTSHandler tts;
-	//private TextView splashText;
+	private TextView splashText;
+	private Button invisButton;
 	protected void onCreate(Bundle savedInstanceState) { 
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
-		//splashText = (TextView)findViewById(R.id.splashText);
-		tts = new TTSHandler(this);
 		
-		tts.speakPhrase("test");
-		//tts.speakPhrase(splashText.toString());
 		Thread splashTimer = new Thread() {
 			public void run() {
 				try{
@@ -38,11 +35,31 @@ public class SplashActivity extends Activity {
 				}
 				finally{
 					Intent mainActivity = new Intent("android.intent.category.MENU");
-					startActivity(mainActivity);
+					//startActivity(mainActivity);
+					invisButton.performLongClick();
 				}
 			}
 		};
+		
+		splashText = (TextView)findViewById(R.id.splashText);
+		//d
+		tts = new TTSHandler(this);
+		
+		invisButton = (Button)findViewById(R.id.invisButton);
+		
+		invisButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) 
+            {
+            	tts.speakPhrase(splashText.getText().toString());
+                return false;
+            }
+        });
+		
 		splashTimer.start();
+		
+		
 	}
 }
+
 

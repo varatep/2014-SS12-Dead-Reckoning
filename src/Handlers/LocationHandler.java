@@ -10,12 +10,6 @@ import android.widget.Toast;
 import java.util.Locale;
 
 
-
-/**
- * Created by Austin on 2/7/14.
- *
- *
- */
 public class LocationHandler {
 	private String longitude;
 	private String latitude;
