@@ -64,6 +64,7 @@ public class Client implements Runnable {
 	                String s = reader.readLine();
 	                //socket.shutdownInput();
 	                Log.i("ss12", "read in " + String.valueOf(s) + "\n");
+	                reader.readLine();
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	            }
