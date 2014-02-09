@@ -76,29 +76,7 @@ public class MainActivity extends Activity {
 	    mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
 	    mChannel = mManager.initialize(this, getMainLooper(), null);
 	    
-	    mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
-	        @Override
-	        public void onSuccess() {
-	            Log.i("ss12", "discover peers started");
-	            
-	            /*mManager.requestPeers(mChannel, myPeerListListener);
-                
-                myPeerListListener.onPeersAvailable(deviceList);
-                Collection<WifiP2pDevice> c = deviceList.getDeviceList();
-                ArrayList<WifiP2pDevice> describedList = new ArrayList<WifiP2pDevice>(c);
-                
-                if(describedList != null) {
-                	for(int i = 0; i < describedList.size(); i++) {
-                		Log.i("ss12", describedList.get(i).deviceName);
-                	}
-                }*/
-	        }
-
-	        @Override
-	        public void onFailure(int reasonCode) {
-	            Log.i("ss12", "discover peers - failed");
-	        }
-	    });
+	    receiver = new WiFiDirectBroadcastReceiver(mManager, mChannel, this, peerListListener);
 	    
 	}
 	
@@ -146,7 +124,31 @@ public class MainActivity extends Activity {
 	
 	public void listen(View view) {
 		
-		Server server = new Server(2000);
+		mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
+	        @Override
+	        public void onSuccess() {
+	            Log.i("ss12", "discover peers started");
+	            
+	            //mManager.requestPeers(mChannel, myPeerListListener);
+                
+                /*myPeerListListener.onPeersAvailable(deviceList);
+                Collection<WifiP2pDevice> c = deviceList.getDeviceList();
+                ArrayList<WifiP2pDevice> describedList = new ArrayList<WifiP2pDevice>(c);
+                
+                if(describedList != null) {
+                	for(int i = 0; i < describedList.size(); i++) {
+                		Log.i("ss12", describedList.get(i).deviceName);
+                	}
+                }*/
+	        }
+
+	        @Override
+	        public void onFailure(int reasonCode) {
+	            Log.i("ss12", "discover peers - failed");
+	        }
+	    });
+		
+		//Server server = new Server(2000);
 		//String[] ips = IPFinder.getIPs();
 		//for(int i = 0; i < ips.length; i++) {
 		//	Log.i("ss12", ips[i]);
