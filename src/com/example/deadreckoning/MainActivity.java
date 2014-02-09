@@ -21,42 +21,10 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		// First content view is the splash screen
-		setContentView(R.layout.splash_screen);
+		setContentView(R.layout.activity_main);
 		
-		// Create a timer that switches from splash screen after 5 seconds
-		// TODO switch after TTS finishes or user taps on splash screen
-		new CountDownTimer(5000,1000) {
-			
-			@Override
-			public void onFinish() {
-				// Set content to the activity screen
-				setContentView(R.layout.activity_main);
-			}
-
-			
-			@Override
-			public void onTick(long millisUntilFinished) {
-				// Do nothing but act as a countdown per second
-			}
-			
-		}.start();
-		/*
-		Thread splashTimer = new Thread() {
-			public void run() {
-				try {
-					
-					sleep(5000);
-					setContentView(R.layout.activity_main);
-				}
-				catch(InterruptedException ie) {
-					ie.printStackTrace();
-				}
-			}
-		};
-		Log.i("ss12", "before splash");
-		splashTimer.run();
-		Log.i("ss12", "after splash");
-		*/
+		
+		
 		
 		buttonClient = (Button)findViewById(R.id.button1);
 		buttonServer = (Button)findViewById(R.id.button2);
@@ -68,7 +36,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				startActivity(new Intent(MainActivity.this, MainActivity.class));
+				startActivity(new Intent(MainActivity.this, SplashActivity.class));
 			}
 		});
 		
