@@ -13,10 +13,9 @@
         android:id="@+id/textViewHelp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Do you need instructions on how to opperate the Dead Reckoning App?" 
-        android:textSize="36dp"
         android:gravity="center"
-        />
+        android:text="@string/help"
+        android:textSize="36dp" />
 
     <Button
         android:id="@+id/button4"

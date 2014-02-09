@@ -18,7 +18,7 @@
     android:layout_centerHorizontal="true"
     android:layout_marginTop="188dp"
     android:gravity="center"
-    android:text="@string/description"
+    android:text="@string/splash"
     android:textSize="18dp" />
 
 <Button
@@ -30,6 +30,6 @@
     android:layout_alignParentTop="true"
     android:layout_marginLeft="39dp"
     android:text="button stuff"
-    android:visibility="visible" />
+    android:visibility="invisible" />
 
 </RelativeLayout>

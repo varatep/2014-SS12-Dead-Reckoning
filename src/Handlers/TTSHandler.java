@@ -21,7 +21,7 @@ public class TTSHandler {
     public TTSHandler(Context context) {
         this.context = context;
         mTts = new TextToSpeech(context, mInitListener);
-
+        mTts.setSpeechRate((float) 1.1);
     }
 
     private TextToSpeech.OnInitListener mInitListener = new TextToSpeech.OnInitListener() {
