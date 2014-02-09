@@ -17,6 +17,10 @@ import Network.Server;
 import Network.WiFiDirectBroadcastReceiver;
 
 import dr.main.R;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
@@ -31,10 +35,22 @@ import android.content.IntentFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements LocationListener, Runnable {
 
+	
+	Location location;
+	TextView latitude;
+	TextView longitude;
+	LocationManager locationManager;
+	private String provider;
+	boolean threadStarted = true;
+	
+	/////////////////////////////////////////////
+	
 	private final IntentFilter intentFilter = new IntentFilter();
 	Channel mChannel;
 	WifiP2pManager mManager;
@@ -85,6 +101,17 @@ public class MainActivity extends Activity {
         }
 	};
 	
+	@Override
+	public void run() {
+		while(true) {
+			onLocationChanged(location);
+			try {
+				Thread.sleep(100);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +135,62 @@ public class MainActivity extends Activity {
 	    
 	    receiver = new WiFiDirectBroadcastReceiver(mManager, mChannel, this, peerListListener);
 	    
+	    ////////////////////////////////////////////////////////////////////////////////////////
+	    ///////////////////////////////////////////////////////////////////////////////////////
+	    
+	    
+	    latitude = (TextView) findViewById(R.id.latitude);
+	    longitude = (TextView) findViewById(R.id.longitude);
+	    
+	    locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	    // Define the criteria how to select the locatioin provider -> use
+	    // default
+	    Criteria criteria = new Criteria();
+	    //criteria.setAccuracy(Criteria.ACCURACY_FINE);
+	    provider = locationManager.getBestProvider(criteria, true);
+	    location = locationManager.getLastKnownLocation(provider);
+	    Log.i("ss12", provider);
+
+	    // Initialize the location fields
+	    if (location != null) {
+	      System.out.println("Provider " + provider + " has been selected.");
+	      onLocationChanged(location);
+	    } else {
+	      latitude.setText("Location not available");
+	      longitude.setText("Location not available");
+	    }
+	    if(!threadStarted) {
+	    	Thread thread = new Thread(this);
+	    	thread.start();
+	    	threadStarted = true;
+	    }
+	}
+	
+	@Override
+	public void onLocationChanged(Location location) {
+		double lat = location.getLatitude();
+	    double lng = location.getLongitude();
+	    latitude.setText(String.valueOf(lat));
+	    longitude.setText(String.valueOf(lng));
+	}
+	
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+	    // TODO Auto-generated method stub
+	
+	}
+	
+	@Override
+	public void onProviderEnabled(String provider) {
+	    Toast.makeText(this, "Enabled new provider " + provider,
+	        Toast.LENGTH_SHORT).show();
+	
+	}
+	
+	@Override
+	public void onProviderDisabled(String provider) {
+	    Toast.makeText(this, "Disabled provider " + provider,
+	        Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
@@ -115,12 +198,14 @@ public class MainActivity extends Activity {
 	    super.onResume();
 	    receiver = new WiFiDirectBroadcastReceiver(mManager, mChannel, this, peerListListener);
         registerReceiver(receiver, intentFilter);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 	}
 	
 	@Override
 	protected void onPause() {
 		super.onPause();
 		unregisterReceiver(receiver);
+		locationManager.removeUpdates(this);
 	}
 
 	@Override

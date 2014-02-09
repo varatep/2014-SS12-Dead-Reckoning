@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:text="Connect"
-        android:onClick="connect" />
+        android:layout_marginTop="24dp"
+        android:onClick="connect"
+        android:text="Connect" />
 
     <Button
         android:id="@+id/listen"
@@ -24,8 +24,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/connect"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="74dp"
-        android:text="Listen"
-        android:onClick="listen" />
+        android:layout_marginTop="20dp"
+        android:onClick="listen"
+        android:text="Listen" />
+
+    <TextView
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" 
+        android:layout_below="@+id/latitude"
+        android:layout_marginTop="46dp" />
 
 </RelativeLayout>
