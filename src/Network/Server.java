@@ -62,7 +62,7 @@ public class Server implements Runnable {
 	        	if(!LocateActivity.direction.equals(direction)) {
 	        		Log.i("ss12", "after - " + LocateActivity.direction);
 	        		direction = LocateActivity.direction;
-                    writer.write(direction);
+                    writer.write("hello");
                     writer.flush();
 	        	}
 	        	try {
