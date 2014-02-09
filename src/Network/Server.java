@@ -50,6 +50,9 @@ public class Server implements Runnable {
 	
 	            try {
 	                String s = reader.readLine();
+	                if(s != null) {
+	                	keepRunning = false;
+	                }
 	                Log.i("ss12", "read in " + String.valueOf(s));
 	            } catch (IOException e) {
 	                e.printStackTrace();

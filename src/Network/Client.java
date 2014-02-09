@@ -54,6 +54,7 @@ public class Client implements Runnable {
             		String data = "I'm talking!!";
                     writer.write(data);
                     writer.flush();
+                    socket.close();
                 //}
 
                // try {

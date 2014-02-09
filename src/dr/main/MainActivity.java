@@ -156,14 +156,14 @@ public class MainActivity extends Activity {
 	            Log.i("ss12", "discover peers - failed " + reasonCode);
 	        }
 	    });*/
-		Client client = new Client(2000, "192.168.45.139");
+		Client client = new Client(2346, "192.168.45.139");
 		
 		
 		
 	}
 	
 	public void listen(View view) {
-		Server server = new Server(1247);
+		Server server = new Server(2346);
 		
 		
 	}
