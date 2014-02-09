@@ -9,9 +9,11 @@ import Network.Server;
 import Network.WiFiDirectBroadcastReceiver;
 
 import dr.main.R;
+import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.net.wifi.p2p.WifiP2pManager.ActionListener;
 import android.net.wifi.p2p.WifiP2pManager.Channel;
 import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
 import android.os.Bundle;
@@ -45,6 +47,7 @@ public class MainActivity extends Activity {
             // of the change.  For instance, if you have a ListView of available
             // peers, trigger an update.
             //((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
+            Log.i("ss12", peers.toString());
             if (peers.size() == 0) {
                 Log.d("ss12", "No devices found");
                 return;
@@ -73,6 +76,30 @@ public class MainActivity extends Activity {
 	    mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
 	    mChannel = mManager.initialize(this, getMainLooper(), null);
 	    
+	    mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
+	        @Override
+	        public void onSuccess() {
+	            Log.i("ss12", "discover peers started");
+	            
+	            /*mManager.requestPeers(mChannel, myPeerListListener);
+                
+                myPeerListListener.onPeersAvailable(deviceList);
+                Collection<WifiP2pDevice> c = deviceList.getDeviceList();
+                ArrayList<WifiP2pDevice> describedList = new ArrayList<WifiP2pDevice>(c);
+                
+                if(describedList != null) {
+                	for(int i = 0; i < describedList.size(); i++) {
+                		Log.i("ss12", describedList.get(i).deviceName);
+                	}
+                }*/
+	        }
+
+	        @Override
+	        public void onFailure(int reasonCode) {
+	            Log.i("ss12", "discover peers - failed");
+	        }
+	    });
+	    
 	}
 	
 	@Override
@@ -97,36 +124,29 @@ public class MainActivity extends Activity {
 	
 	public void connect(View view) {
 		
-		Client client = new Client(8889, "192.168.45.139");
+		//Client client = new Client(2000, "192.168.45.139");
 		
-		/*mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
-	        @Override
-	        public void onSuccess() {
-	            Log.i("ss12", "discover peers started");
-	            mManager.requestPeers(mChannel, myPeerListListener);
-                
-                myPeerListListener.onPeersAvailable(deviceList);
-                Collection<WifiP2pDevice> c = deviceList.getDeviceList();
-                ArrayList<WifiP2pDevice> describedList = new ArrayList<WifiP2pDevice>(c);
-                
-                if(describedList != null) {
-                	for(int i = 0; i < describedList.size(); i++) {
-                		Log.i("ss12", describedList.get(i).deviceName);
-                	}
-                }
-	        }
-
-	        @Override
-	        public void onFailure(int reasonCode) {
-	            Log.i("ss12", "discover peers - failed");
-	        }
-	    });*/
+		WifiP2pDevice device = null;
+		WifiP2pConfig config = new WifiP2pConfig();
+		config.deviceAddress = device.deviceAddress;
+		mManager.connect(mChannel, config, new ActionListener() {
+		 
+		    @Override
+		    public void onSuccess() {
+		        //success logic
+		    }
+		 
+		    @Override
+		    public void onFailure(int reason) {
+		        //failure logic
+		    }
+		});
 		
 	}
 	
 	public void listen(View view) {
 		
-		Server server = new Server(8889);
+		Server server = new Server(2000);
 		//String[] ips = IPFinder.getIPs();
 		//for(int i = 0; i < ips.length; i++) {
 		//	Log.i("ss12", ips[i]);

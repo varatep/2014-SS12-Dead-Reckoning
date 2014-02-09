@@ -64,10 +64,8 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                 dlgAlert.create().show();               
             }
         } else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) {
-            // Call WifiP2pManager.requestPeers() to get a list of current peers
         	Log.i("ss12", "peers changed here");
         	if (manager != null) {
-        		Log.i("ss12", "peers changed and manager != null");
                 manager.requestPeers(channel, myPeerListListener);  
             }
         } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
