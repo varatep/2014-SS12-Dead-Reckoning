@@ -141,9 +141,30 @@ public class LocateActivity extends Activity implements SensorEventListener {
 			public void run() {
 				do {
 					try{
-						tts.speakPhrase(tvDirection.getText().toString());
+						
+						if (MainActivity.server != null ) {
+							if (!tvDirection.getText().toString().equals("You are heading: " + "EAST")) {
+								tts.shutUp();
+								tts.speakPhrase(tvDirection.getText().toString() + " .FACE EAST");
+							}
+							else {
+								tts.shutUp();
+								tts.speakPhrase(tvDirection.getText().toString() + "WALK FORWARD");
+							}
+						}
+						else {
+							if (!tvDirection.getText().toString().equals("You are heading: " + "WEST")) {
+								tts.shutUp();
+								tts.speakPhrase(tvDirection.getText().toString() + " .FACE WEST");
+							}
+							else {
+								tts.shutUp();
+								tts.speakPhrase(tvDirection.getText().toString() + "WALK FORWARD");
+							}
+						}
+						
 						sleep(5000);
-					}
+					}  
 					catch(Exception e){
 						
 						e.printStackTrace();
@@ -387,8 +408,8 @@ public class LocateActivity extends Activity implements SensorEventListener {
 		if(MainActivity.server != null) {
 			MainActivity.server.shutDown();
 		}
-		if(MainActivity.server != null) {
-			MainActivity.server.shutDown();
+		if(MainActivity.client != null) {
+			MainActivity.client.shutDown();
 		}
 	}
 	
